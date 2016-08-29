@@ -4,6 +4,8 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=a173054a93896e933df53e3382d472c2"
 DEPENDS = "eet-native edje-native elementary-native efreet evas ecore edje eet eldbus ethumb eio"
 DEPENDS_class-native = "efl-native"
 
+PARALLEL_MAKE = ""
+
 inherit efl gettext
 
 EXTRA_OECONF_append_class-target = "\
