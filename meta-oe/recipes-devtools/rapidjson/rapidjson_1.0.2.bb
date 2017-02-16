@@ -4,7 +4,7 @@ SECTION = "libs"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://license.txt;md5=cff54e417a17b4b77465198254970cd2"
 
-SRC_URI = "git://github.com/miloyip/rapidjson.git;nobranch=1 \
+SRC_URI = "git://github.com/miloyip/rapidjson.git;nobranch=1;protocol=http \
            file://remove-march-native-from-CMAKE_CXX_FLAGS.patch \
            file://Fix-gcc-strict-overflow-warning.patch \
 "
