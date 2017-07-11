@@ -4,14 +4,15 @@ DESCRIPTION = "Utility for basic Ethernet frame filtering on a Linux bridge, \
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=53b4a999993871a28ab1488fdbd2e73e"
 SECTION = "console/network"
-PR = "r3"
+PR = "r4"
 
-RDEPENDS_${PN} += "perl"
+RDEPENDS_${PN} += "bash"
 
 RRECOMMENDS_${PN} += "kernel-module-ebtables \
     "
 
 SRC_URI = "${SOURCEFORGE_MIRROR}/ebtables/ebtables-v${PV}.tar.gz \
+           file://ebtables-save \
            file://installnonroot.patch \
            file://01debian_defaultconfig.patch \
            file://ebtables.init \
@@ -50,10 +51,10 @@ do_install () {
     sed -i 's!/sbin/!${base_sbindir}/!g' ${D}/${sysconfdir}/init.d/ebtables
     sed -i 's!/etc/!${sysconfdir}/!g' ${D}/${sysconfdir}/init.d/ebtables
 
-    # The script ebtables-save refernces perl in exec_prefix, so
-    # move it to sbindir to avoid QA issue
-    install -d ${D}/${sbindir}
-    mv ${D}/${base_sbindir}/ebtables-save ${D}/${sbindir}
+    # Replace upstream ebtables-save perl script with Fedora bash based rewrite
+    # http://pkgs.fedoraproject.org/cgit/rpms/ebtables.git/tree/ebtables-save
+    install -m 0755 ${WORKDIR}/ebtables-save ${D}${base_sbindir}/ebtables-save
+    sed -i 's!/sbin/!${base_sbindir}/!g' ${D}${base_sbindir}/ebtables-save
 }
 
 CONFFILES_${PN} += "${sysconfdir}/default/ebtables"
