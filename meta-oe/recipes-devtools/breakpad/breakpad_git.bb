@@ -44,6 +44,13 @@ SRC_URI = "git://github.com/google/breakpad;name=breakpad \
            file://0001-lss-Match-syscalls-to-match-musl.patch;patchdir=src/third_party/lss \
            file://mips_asm_sgidefs.patch;patchdir=src/third_party/lss \
 "
+
+#
+# Experimental fix for ARM + musl, see: https://groups.google.com/forum/#!topic/google-breakpad-discuss/eJudWriRE10
+# Part of that change is applied by 0001-lss-Match-syscalls-to-match-musl.patch, but the #undef lines seem to be needed too?
+#
+SRC_URI_append_libc-musl = " file://0001-fix-for-ARM-with-musl.patch;patchdir=src/third_party/lss"
+
 S = "${WORKDIR}/git"
 
 CXXFLAGS += "-D_GNU_SOURCE"
