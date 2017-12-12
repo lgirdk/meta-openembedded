@@ -11,9 +11,9 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=32107dd283b1dfeb66c9b3e6be312326"
 
 DEPENDS = "util-linux lvm2 popt libgcrypt"
 
-SRC_URI = "http://cryptsetup.googlecode.com/files/cryptsetup-${PV}.tar.bz2"
-SRC_URI[md5sum] = "cd834da49fbe92dd66df02cc5c61280f"
-SRC_URI[sha256sum] = "15723f0198303d4bcb99d480b7a773918e2d319f0348457988c063bdd03e109a"
+SRC_URI = "https://www.kernel.org/pub/linux/utils/cryptsetup/v1.6/cryptsetup-${PV}.tar.xz"
+SRC_URI[md5sum] = "2e38a58a03d9579b843960c779ea79e5"
+SRC_URI[sha256sum] = "7f43465945e5370ebd5afca7edb44a908fec5c6bddf48035e263328e48a364e3"
 
 inherit autotools gettext
 
