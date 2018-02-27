@@ -1,0 +1,50 @@
+From c93599683d978b06c741d2731e8dfb09f1ef3ea4 Mon Sep 17 00:00:00 2001
+From: Andre McCurdy <armccurdy@gmail.com>
+Date: Mon, 26 Feb 2018 17:30:06 -0800
+Subject: [PATCH] make liblzma support configurable
+
+Upstream-status: Inappropriate [configuration]
+
+Signed-off-by: Andre McCurdy <armccurdy@gmail.com>
+---
+ lang/c/CMakeLists.txt | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/lang/c/CMakeLists.txt b/lang/c/CMakeLists.txt
+index fda4382..71a5239 100644
+--- a/lang/c/CMakeLists.txt
++++ b/lang/c/CMakeLists.txt
+@@ -22,6 +22,8 @@ enable_testing()
+ 
+ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR})
+ 
++option(WITH_LZMA "Build with LZMA support" ON)
++
+ # Eliminates warning about linker paths when linking both zlib and
+ # liblzma.
+ cmake_policy(SET CMP0003 NEW)
+@@ -152,7 +154,11 @@ else (SNAPPY_FOUND AND ZLIB_FOUND)
+ endif (SNAPPY_FOUND AND ZLIB_FOUND)
+ 
+ find_package(PkgConfig)
+-pkg_check_modules(LZMA liblzma)
++
++if (WITH_LZMA)
++    pkg_check_modules(LZMA REQUIRED liblzma)
++endif (WITH_LZMA)
++
+ if (LZMA_FOUND)
+     set(LZMA_PKG liblzma)
+     add_definitions(-DLZMA_CODEC)
+@@ -162,7 +168,7 @@ if (LZMA_FOUND)
+ else (LZMA_FOUND)
+     set(LZMA_PKG "")
+     set(LZMA_LIBRARIES "")
+-    message("Disabled lzma codec. liblzma not found.")
++    message("Disabled lzma codec.")
+ endif (LZMA_FOUND)
+ 
+ set(CODEC_LIBRARIES ${ZLIB_LIBRARIES} ${LZMA_LIBRARIES} ${SNAPPY_LIBRARIES})
+-- 
+1.9.1
+
