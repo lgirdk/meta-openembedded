@@ -96,6 +96,7 @@ PACKAGECONFIG[imap] = "--with-imap=${STAGING_DIR_HOST} \
                        ,--without-imap --without-imap-ssl \
                        ,uw-imap"
 PACKAGECONFIG[ipv6] = "--enable-ipv6,--disable-ipv6,"
+PACKAGECONFIG[valgrind] = "--with-valgrind=${STAGING_DIR_TARGET}/usr,--with-valgrind=no,valgrind"
 
 
 export PHP_NATIVE_DIR = "${STAGING_BINDIR_NATIVE}"
