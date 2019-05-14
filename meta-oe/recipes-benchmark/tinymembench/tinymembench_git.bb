@@ -8,12 +8,14 @@ LIC_FILES_CHKSUM = "file://main.c;endline=22;md5=879b9bbb60851454885b5fa47eb6b34
 
 PV = "0.4.0+git${SRCPV}"
 
-SRCREV = "a2cf6d7e382e3aea1eb39173174d9fa28cad15f3"
-SRC_URI = "git://github.com/ssvb/tinymembench.git \
-           file://0001-asm-Delete-.func-.endfunc-directives.patch \
-           "
+SRCREV = "984027bd33e820f632743a46e6259b6e68d5e065"
+SRC_URI = "git://github.com/armcc/tinymembench.git"
 
 S = "${WORKDIR}/git"
+
+# Force -O3
+FULL_OPTIMIZATION_remove = "-O0 -O1 -O2 -Os"
+FULL_OPTIMIZATION_append = " -O3"
 
 TARGET_CC_ARCH += "${LDFLAGS}"
 
