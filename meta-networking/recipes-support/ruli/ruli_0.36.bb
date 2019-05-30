@@ -16,10 +16,10 @@ SRC_URI = "http://download.savannah.gnu.org/releases/ruli/ruli_${PV}.orig.tar.gz
 SRC_URI[md5sum] = "e73fbfdeadddb68a703a70cea5271468"
 SRC_URI[sha256sum] = "11d32def5b514748fbd9ea8c88049ae99e1bb358efc74eb91a4d268a3999dbfa"
 
-do_install1() {
+do_install() {
     install -d ${D}${includedir}/ruli
+    install -m 0644 ${S}/src/ruli*.h ${D}${includedir}/ruli/
     install -d ${D}${libdir}
-    install -m 0644 ${S}/src/ruli*.h ${D}${includedir}/ruli
-    install -m 0644 ${S}/src/libruli.so ${D}${libdir}
-    install -m 0644 ${S}/src/libruli.so.4 ${D}${libdir}
+    install -m 0644 ${S}/src/libruli.so.4 ${D}${libdir}/
+    ln -sf libruli.so.4 ${D}${libdir}/libruli.so
 }
