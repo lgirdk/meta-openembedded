@@ -6,11 +6,6 @@ LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=53b4a999993871a28ab1488fdbd2e73e"
 SECTION = "net"
 
-RDEPENDS_${PN} += "bash perl"
-
-RRECOMMENDS_${PN} += "kernel-module-ebtables \
-    "
-
 SRC_URI = "http://ftp.netfilter.org/pub/ebtables/ebtables-${PV}.tar.gz \
            file://0001-Makefile.am-do-not-install-etc-ethertypes.patch \
            file://ebtables-legacy-save \
@@ -47,7 +42,16 @@ do_configure_prepend () {
     ( cd ${S}; ./autogen.sh )
 }
 
+PACKAGES =+ "${PN}-saverestore"
+
 FILES_${PN}-dbg += "${base_libdir}/ebtables/.debug"
 FILES_${PN} += "${base_libdir}/ebtables/*.so"
+FILES_${PN}-saverestore += "${base_sbindir}/ebtables-save ${base_sbindir}/ebtables-restore"
 
 SYSTEMD_SERVICE_${PN} = "ebtables.service"
+
+RDEPENDS_${PN}-saverestore += "bash"
+
+RRECOMMENDS_${PN} += "kernel-module-ebtables \
+    "
+
