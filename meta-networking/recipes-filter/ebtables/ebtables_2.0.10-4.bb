@@ -7,11 +7,6 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=53b4a999993871a28ab1488fdbd2e73e"
 SECTION = "net"
 PR = "r4"
 
-RDEPENDS_${PN} += "bash"
-
-RRECOMMENDS_${PN} += "kernel-module-ebtables \
-    "
-
 UPSTREAM_CHECK_URI = "https://sourceforge.net/projects/ebtables/files/ebtables/"
 
 SRC_URI = "${SOURCEFORGE_MIRROR}/ebtables/ebtables-v${PV}.tar.gz \
@@ -110,5 +105,13 @@ INITSCRIPT_PARAMS = "start 41 S . stop 41 6 ."
 
 SYSTEMD_SERVICE_${PN} = "ebtables.service"
 
+PACKAGES =+ "${PN}-saverestore"
+
 FILES_${PN}-dbg += "${base_libdir}/ebtables/.debug"
 FILES_${PN} += "${base_libdir}/ebtables/*.so"
+FILES_${PN}-saverestore += "${base_sbindir}/ebtables-save ${base_sbindir}/ebtables-restore"
+
+RDEPENDS_${PN}-saverestore += "bash"
+
+RRECOMMENDS_${PN} += "kernel-module-ebtables \
+    "
