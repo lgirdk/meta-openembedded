@@ -26,6 +26,7 @@ SRC_URI = "${SOURCEFORGE_MIRROR}/ebtables/ebtables-v${PV}.tar.gz \
            file://0007-extensions-Use-stdint-types.patch \
            file://0008-ethernetdb.h-Remove-C-specific-compiler-hint-macro-_.patch \
            file://0009-ebtables-Allow-RETURN-target-rules-in-user-defined-c.patch \
+           file://0001-Build-static-ie-all-plugins-included-ebtables-by-def.patch \
            "
 
 SRC_URI_append_libc-musl = " file://0010-Adjust-header-include-sequence.patch"
@@ -110,7 +111,7 @@ SYSTEMD_SERVICE_${PN} = "ebtables.service"
 PACKAGES =+ "${PN}-saverestore"
 
 FILES_${PN}-dbg += "${base_libdir}/ebtables/.debug"
-FILES_${PN} += "${base_libdir}/ebtables/*.so"
+FILES_${PN}-saverestore += "${base_libdir}/ebtables/*.so"
 FILES_${PN}-saverestore += "${base_sbindir}/ebtables-save ${base_sbindir}/ebtables-restore"
 
 RDEPENDS_${PN}-saverestore += "bash"
