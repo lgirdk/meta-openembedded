@@ -60,6 +60,8 @@ python __anonymous () {
             d.appendVar('CFLAGS' ,' -DKERNEL_64_USERSPACE_32 -DEBT_MIN_ALIGN=8')
 }
 
+ASNEEDED = ""
+
 EXTRA_OEMAKE = " \
         BINDIR=${base_sbindir} \
         MANDIR=${mandir} \
@@ -69,7 +71,7 @@ EXTRA_OEMAKE = " \
         LIBDIR=${base_libdir}/ebtables \
         'CC=${CC}' \
         'CFLAGS=${CFLAGS}' \
-        'LDFLAGS=${LDFLAGS} -Wl,--no-as-needed' \
+        'LDFLAGS=${LDFLAGS}' \
         'LD=${LD}' \
 "
 
