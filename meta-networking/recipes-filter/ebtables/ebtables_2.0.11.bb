@@ -8,6 +8,7 @@ SECTION = "net"
 
 SRC_URI = "http://ftp.netfilter.org/pub/ebtables/ebtables-${PV}.tar.gz \
            file://0001-Makefile.am-do-not-install-etc-ethertypes.patch \
+           file://0001-Build-static-ie-all-plugins-included-ebtables-by-def.patch \
            file://ebtables-legacy-save \
            file://ebtables.common \
            file://ebtables.service \
@@ -45,7 +46,7 @@ do_configure_prepend () {
 PACKAGES =+ "${PN}-saverestore"
 
 FILES_${PN}-dbg += "${base_libdir}/ebtables/.debug"
-FILES_${PN} += "${base_libdir}/ebtables/*.so"
+FILES_${PN}-saverestore += "${base_libdir}/ebtables/*.so"
 FILES_${PN}-saverestore += "${base_sbindir}/ebtables-save ${base_sbindir}/ebtables-restore"
 
 SYSTEMD_SERVICE_${PN} = "ebtables.service"
