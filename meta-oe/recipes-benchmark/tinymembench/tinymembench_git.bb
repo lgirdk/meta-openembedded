@@ -30,7 +30,9 @@ do_install() {
 #| {standard input}:69: Error: instruction not supported in Thumb16 mode -- `subs r1,r1,#16'
 #| {standard input}:82: Error: selected processor does not support Thumb mode `mla r3,r4,r3,r5'
 #| {standard input}:82: Error: unshifted register required -- `and r8,r7,r3,lsr#16'
-ARM_INSTRUCTION_SET = "arm"
+ARM_INSTRUCTION_SET_armv4 = "arm"
+ARM_INSTRUCTION_SET_armv5 = "arm"
+ARM_INSTRUCTION_SET_armv6 = "arm"
 #
 # Does not work for 64bit mips.
 #
