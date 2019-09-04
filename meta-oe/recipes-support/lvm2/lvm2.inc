@@ -27,7 +27,7 @@ LVM2_PACKAGECONFIG = "dmeventd"
 LVM2_PACKAGECONFIG_append_class-target = " \
     ${@bb.utils.filter('DISTRO_FEATURES', 'selinux', d)} \
     ${@incompatible_license_contains('GPLv3', '', 'thin-provisioning-tools', d)} \
-    udev \
+    ${@bb.utils.contains('VIRTUAL-RUNTIME_dev_manager', 'busybox-mdev', '', 'udev', d)} \
 "
 
 # odirect is always enabled because there currently is a bug in
