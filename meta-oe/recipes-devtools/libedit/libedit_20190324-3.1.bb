@@ -10,8 +10,6 @@ DEPENDS = "ncurses"
 
 inherit autotools
 
-# upstream site does not allow wget's User-Agent
-FETCHCMD_wget += "-U bitbake"
 SRC_URI = "http://www.thrysoee.dk/editline/${BPN}-${PV}.tar.gz \
            file://stdc-predef.patch \
           "
