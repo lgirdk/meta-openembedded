@@ -122,7 +122,7 @@ do_install () {
     fi
 
     # Remove sysinit script if sysvinit is not in DISTRO_FEATURES
-    if ${@bb.utils.contains('DISTRO_FEATURES', 'sysvinit', 'false', 'true', d)}; then
+    if ${@bb.utils.contains('DISTRO_FEATURES', 'sysvinit', 'false', 'true', d)} && [ "${VIRTUAL-RUNTIME_init_manager}" != "busybox" ]; then
         rm -rf ${D}${sysconfdir}/init.d/
         rm -f ${D}${sysconfdir}/default/watchquagga
     fi
