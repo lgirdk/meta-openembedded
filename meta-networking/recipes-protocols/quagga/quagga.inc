@@ -141,7 +141,7 @@ do_install () {
 
 DEPENDS_append = " ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'systemd-systemctl-native', '', d)}"
 pkg_postinst_${PN} () {
-    if ${@bb.utils.contains('DISTRO_FEATURES', 'systemd sysvinit', 'true', 'false', d)}; then
+    if ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'true', 'false', d)}; then
         if [ -n "$D" ]; then
             OPTS="--root=$D"
         fi
