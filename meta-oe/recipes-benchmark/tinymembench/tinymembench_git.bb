@@ -8,7 +8,7 @@ LIC_FILES_CHKSUM = "file://main.c;endline=22;md5=879b9bbb60851454885b5fa47eb6b34
 
 PV = "0.4.0+git${SRCPV}"
 
-SRCREV = "984027bd33e820f632743a46e6259b6e68d5e065"
+SRCREV = "cd19ba4434533bba09d286ef6f4ecdc4b3ee70a9"
 SRC_URI = "git://github.com/armcc/tinymembench.git"
 
 S = "${WORKDIR}/git"
