@@ -13,6 +13,10 @@ SRC_URI = "git://github.com/armcc/tinymembench.git"
 
 S = "${WORKDIR}/git"
 
+# Force gcc (temp workaround for issues with clang in OE 3.2)
+TOOLCHAIN_arm = "gcc"
+TOOLCHAIN_armeb = "gcc"
+
 # Force -O3
 FULL_OPTIMIZATION_remove = "-O0 -O1 -O2 -Os"
 FULL_OPTIMIZATION_append = " -O3"
