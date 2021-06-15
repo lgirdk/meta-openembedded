@@ -5,16 +5,15 @@ LICENSE = "GPLv2"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=f9d20a453221a1b7e32ae84694da2c37"
 
-SRCREV = "ab8a2cc330253321be7bc69dea88bfaa3d48415e"
-
 SRC_URI = "\
-    git://git.kernel.org/pub/scm/linux/kernel/git/shemminger/bridge-utils.git;branch=main \
+    https://mirrors.edge.kernel.org/pub/linux/utils/net/bridge-utils/bridge-utils-1.7.1.tar.gz \
     file://kernel-headers.patch \
     file://0005-build-don-t-ignore-CFLAGS-from-environment.patch \
     file://0006-libbridge-Modifying-the-AR-to-cross-toolchain.patch \
 "
 
-S = "${WORKDIR}/git"
+SRC_URI[md5sum] = "7296326fb8e00b875e7e75d25fe631e6"
+SRC_URI[sha256sum] = "90bb0035eef5e9f842a239c6b01b7219e9f13786a92334f4984b7e3de97aabe2"
 
 DEPENDS = "sysfsutils"
 
