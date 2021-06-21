@@ -10,6 +10,7 @@ SRC_URI = "\
     file://kernel-headers.patch \
     file://0005-build-don-t-ignore-CFLAGS-from-environment.patch \
     file://0006-libbridge-Modifying-the-AR-to-cross-toolchain.patch \
+    file://0001-fix-PATH_MAX-definition-for-musl.patch \
 "
 
 SRC_URI[md5sum] = "7296326fb8e00b875e7e75d25fe631e6"

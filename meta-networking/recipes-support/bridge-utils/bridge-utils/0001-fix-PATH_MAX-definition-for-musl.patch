@@ -1,0 +1,47 @@
+From b20a6743f89e3543ce6d3cd2dd93d9a49ca2438d Mon Sep 17 00:00:00 2001
+From: Andre McCurdy <armccurdy@gmail.com>
+Date: Sun, 20 Jun 2021 20:55:49 -0700
+Subject: [PATCH] fix PATH_MAX definition for musl
+
+Build on musl is broken since version 1.7.1 and commit
+a1f20223cfcf7b9eae8c9e7e7a07e7bf1377f65b:
+
+ | libbridge_devif.c: In function 'fpopen':
+ | libbridge_devif.c:33:12: error: 'PATH_MAX' undeclared (first use in this function); did you mean 'AF_MAX'?
+ |    33 |  char path[PATH_MAX];
+ |       | 	   ^~~~~~~~
+ |       | 	   AF_MAX
+
+Signed-off-by: Andre McCurdy <armccurdy@gmail.com>
+---
+ libbridge/libbridge_devif.c | 1 +
+ libbridge/libbridge_init.c  | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/libbridge/libbridge_devif.c b/libbridge/libbridge_devif.c
+index 8b7d954..6c679f6 100644
+--- a/libbridge/libbridge_devif.c
++++ b/libbridge/libbridge_devif.c
+@@ -21,6 +21,7 @@
+ #include <stdlib.h>
+ #include <unistd.h>
+ #include <errno.h>
++#include <limits.h>
+ #include <string.h>
+ #include <dirent.h>
+ #include <fcntl.h>
+diff --git a/libbridge/libbridge_init.c b/libbridge/libbridge_init.c
+index c914971..83a97cd 100644
+--- a/libbridge/libbridge_init.c
++++ b/libbridge/libbridge_init.c
+@@ -20,6 +20,7 @@
+ #include <stdlib.h>
+ #include <unistd.h>
+ #include <errno.h>
++#include <limits.h>
+ #include <string.h>
+ #include <dirent.h>
+ #include <sys/types.h>
+-- 
+2.24.0
+
