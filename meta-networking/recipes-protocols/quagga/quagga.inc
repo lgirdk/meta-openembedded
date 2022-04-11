@@ -20,7 +20,7 @@ SNMP_CONF="${@bb.utils.contains('DISTRO_FEATURES', 'snmp', '--enable-snmp', '', 
 # the "ip" command from busybox is not sufficient (flush by protocol flushes all routes)
 RDEPENDS_${PN} += "iproute2"
 
-SRC_URI = "${SAVANNAH_GNU_MIRROR}/quagga/quagga-${PV}.tar.gz; \
+SRC_URI = "http://downloads.yoctoproject.org/mirror/sources/quagga-${PV}.tar.gz \
            file://quagga.init \
            file://quagga.default \
            file://watchquagga.init \
