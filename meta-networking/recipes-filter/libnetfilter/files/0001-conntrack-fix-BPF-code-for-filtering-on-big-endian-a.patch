@@ -1,0 +1,53 @@
+From 43d7b069f43e047b05f0e0ad5d5528afedc4ac1d Mon Sep 17 00:00:00 2001
+From: Jeremy Sowden <jeremy@azazel.net>
+Date: Fri, 23 Dec 2022 16:24:40 +0000
+Subject: [PATCH] conntrack: fix BPF code for filtering on big-endian
+ architectures
+
+The BPF for checking the subsystem ID looks for it in the righthand byte of
+`nlh->nlmsg_type`.  However, it will only be there on little-endian archi-
+tectures.  The result is that on big-endian architectures the subsystem ID
+doesn't match, all packets are immediately accepted, and all filters are
+ignored.
+
+Link: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=896716
+Fixes: b245e4092c5a ("src: allow to use nfct handler for conntrack and expectations at the same time")
+Signed-off-by: Jeremy Sowden <jeremy@azazel.net>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+
+Upstream-Status: Backport
+---
+ src/conntrack/bsf.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/src/conntrack/bsf.c b/src/conntrack/bsf.c
+index 1549815..589bfd8 100644
+--- a/src/conntrack/bsf.c
++++ b/src/conntrack/bsf.c
+@@ -9,6 +9,7 @@
+ 
+ #include "internal/internal.h"
+ #include "internal/stack.h"
++#include <endian.h>
+ #include <linux/filter.h>
+ #include <stddef.h>		/* offsetof */
+ 
+@@ -301,10 +302,14 @@ bsf_cmp_subsys(struct sock_filter *this, int pos, uint8_t subsys)
+ 		[1] = {
+ 			/* A = skb->data[X+k:B] (subsys_id) */
+ 			.code	= BPF_LD|BPF_B|BPF_IND,
++#if BYTE_ORDER == BIG_ENDIAN
++			.k	= 0,
++#else
+ 			.k	= sizeof(uint8_t),
++#endif
+ 		},
+ 		[2] = {
+-			/* A == subsys ? jump +1 : accept */
++			/* A == subsys ? jump + 1 : accept */
+ 			.code	= BPF_JMP|BPF_JEQ|BPF_K,
+ 			.k	= subsys,
+ 			.jt	= 1,
+-- 
+2.24.0
+
