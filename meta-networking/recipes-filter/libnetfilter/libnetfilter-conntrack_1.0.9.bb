@@ -8,6 +8,7 @@ DEPENDS = "libnfnetlink libmnl"
 
 SRC_URI = "https://www.netfilter.org/projects/libnetfilter_conntrack/files/libnetfilter_conntrack-${PV}.tar.bz2 \
            file://0001-conntrack-fix-build-with-kernel-5.15-and-musl.patch \
+           file://0001-conntrack-fix-BPF-code-for-filtering-on-big-endian-a.patch \
           "
 
 SRC_URI[md5sum] = "596c722733cdf30f24d4418f34f999d9"
