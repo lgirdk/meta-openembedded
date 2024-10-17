@@ -21,6 +21,7 @@ SRCREV = "431fa79ae27edaef8d050a7af6f038f4400193a1"
 SRC_URI = "\
     git://github.com/fluent/fluent-bit.git;branch=3.1;protocol=https \
     file://0001-lib-Do-not-use-private-makefile-targets-in-CMakelist.patch \
+    file://0002-wasm-avoid-cmake-try_run-when-cross-compiling.patch \
     file://0002-flb_info.h.in-Do-not-hardcode-compilation-directorie.patch \
     ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', '', 'file://0003-Disable-installing-systemd-service-file.patch', d)} \
 "
