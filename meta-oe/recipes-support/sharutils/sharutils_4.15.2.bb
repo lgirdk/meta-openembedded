@@ -14,6 +14,7 @@ SRC_URI = "${GNU_MIRROR}/${BPN}/${BP}.tar.gz \
            file://0002-Do-not-include-lib-md5.c-into-src-shar.c.patch \
            file://0001-configure.ac-Check-and-define-intmax_t-type.patch \
            file://0001-libopts.m4-accept-POSIX_SHELL-from-the-environment-d.patch \
+           file://0001-fix-build-with-gcc-15.0.1-error.patch \
            "
 SRC_URI[sha256sum] = "ee336e68549664e7a19b117adf02edfdeac6307f22e5ba78baca457116914637"
 
