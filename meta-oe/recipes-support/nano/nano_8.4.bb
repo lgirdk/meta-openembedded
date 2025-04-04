@@ -13,10 +13,17 @@ RDEPENDS:${PN} = "ncurses-terminfo-base"
 PV_MAJOR = "${@d.getVar('PV').split('.')[0]}"
 
 SRC_URI = "https://nano-editor.org/dist/v${PV_MAJOR}/nano-${PV}.tar.xz"
-SRC_URI[sha256sum] = "551b717b2e28f7e90f749323686a1b5bbbd84cfa1390604d854a3ca3778f111e"
+SRC_URI[sha256sum] = "5ad29222bbd55624d87ea677928b3106a743114d6c6f9b41f36c97be2a8e628d"
 
 UPSTREAM_CHECK_URI = "https://ftp.gnu.org/gnu/nano"
 
 inherit autotools gettext pkgconfig
+
+EXTRA_OECONF = " \
+    ac_cv_func_strcasestr=yes \
+    gl_cv_func_strcasecmp_works=yes \
+    ac_cv_func_strcasecmp=yes \
+"
+
 
 PACKAGECONFIG[tiny] = "--enable-tiny,"
