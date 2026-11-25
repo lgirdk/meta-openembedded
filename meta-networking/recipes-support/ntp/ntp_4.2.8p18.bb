@@ -6,14 +6,13 @@ or satellite receiver or modem."
 HOMEPAGE = "http://support.ntp.org"
 SECTION = "net"
 LICENSE = "NTP"
-LIC_FILES_CHKSUM = "file://COPYRIGHT;md5=4190b39435611e92a4da74e682623f19"
+LIC_FILES_CHKSUM = "file://COPYRIGHT;md5=2311915f6d5142b06395231b0ffeaf29"
 
 DEPENDS = "libevent"
 
 SRC_URI = "http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/ntp-${PV}.tar.gz \
            file://ntp-4.2.4_p6-nano.patch \
            file://reproducibility-fixed-path-to-posix-shell.patch \
-           file://0001-libntp-Do-not-use-PTHREAD_STACK_MIN-on-glibc.patch \
            file://0001-test-Fix-build-with-new-compiler-defaults-to-fno-com.patch \
            file://ntpd \
            file://ntp.conf \
@@ -24,15 +23,14 @@ SRC_URI = "http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/ntp-${PV}.tar.g
            file://sntp.service \
            file://sntp \
            file://ntpd.list \
-           file://CVE-2023-2655x.patch;striplevel=0 \
 "
 
-SRC_URI[sha256sum] = "f65840deab68614d5d7ceb2d0bb9304ff70dcdedd09abb79754a87536b849c19"
+SRC_URI[sha256sum] = "cf84c5f3fb1a295284942624d823fffa634144e096cfc4f9969ac98ef5f468e5"
 
 # CVE-2016-9312 is only for windows.
 # CVE-2019-11331 is inherent to RFC 5905 and cannot be fixed without breaking compatibility
 # The other CVEs are not correctly identified because cve-check
-# is not able to check the version correctly (it only checks for 4.2.8 omitting p15 that makes the difference)
+# is not able to check the version correctly (it only checks for 4.2.8 omitting the pNN suffix that makes the difference)
 CVE_CHECK_IGNORE += "\
     CVE-2016-9312 \
     CVE-2015-5146 \
@@ -92,14 +90,6 @@ PACKAGECONFIG[refclocks] = "--enable-all-clocks,--disable-all-clocks,pps-tools"
 PACKAGECONFIG[debug] = "--enable-debugging,--disable-debugging"
 PACKAGECONFIG[mdns] = "ac_cv_header_dns_sd_h=yes,ac_cv_header_dns_sd_h=no,mdns"
 PACKAGECONFIG[ipv6] = "--enable-ipv6,--disable-ipv6,"
-
-do_configure:append() {
-    # tests are generated but also checked-in to source control
-    # when CVE-2023-2655x.patch changes timestamp of test source file, Makefile detects it and tries to regenerate it
-    # however it fails because of missing ruby interpretter; adding ruby-native as dependency fixes it
-    # since the regenerated file is identical to the one from source control, touch the generated file instead of adding heavy dependency
-    touch ${S}/tests/libntp/run-strtolfp.c
-}
 
 do_install:append() {
     install -d ${D}${sysconfdir}/init.d
